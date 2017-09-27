@@ -1,6 +1,6 @@
-I come from china and I'm trying to not use chinese to write the file.
-
 Note:
+I'm from China and I'm trying not to use Chinese when writing the file.
+
 The project is a cross-platform simple server framework based on boost.asio and redis. Actually it's just a network and redis framework.
 If you use it,you may need logger system,memorycycle system,a sql database,serialization tools and your own protocol.
 
