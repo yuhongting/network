@@ -4,4 +4,4 @@ The project is a cross-platform simple server framework based on boost.asio and 
 And redis is not completed.
 If you use it,you may need logger system,memorycycle system,a sql database,serialization tools and your own protocol.
 
-Compile with msvc140 is easy.I am adding CMakeLists for it,cmake will surport on next commit.
+Compile with msvc140 is easy.I am adding CMakeLists for it.So cmake will surport on next commit.
