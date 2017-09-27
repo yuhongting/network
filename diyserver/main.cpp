@@ -22,9 +22,9 @@ int main(int argc, char* argv[])
 	{
 		std::string addr = "127.0.0.1";
 		std::string port = "6379";
-		/*server s(addr,port,2);
-		s.run();*/
 		redisconn::instance().connect(addr, port);
+		server s("127.0.0.1","10008",2);
+		s.run();
 	}
 	catch (std::exception& e)
 	{
