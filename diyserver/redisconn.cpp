@@ -1,8 +1,9 @@
 //redisconn.cpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //impl the redisconn class
 
 #include "redisconn.h"
+#include "logger.h"
 
 redisconn::redisconn(void)
 	: m_ios()
@@ -24,11 +25,28 @@ bool redisconn::connect( std::string& addr,std::string& port )
 	const unsigned short nport = atoi(port.c_str());
 	if( !m_redis.connect(address, nport, m_errmsg) )
 	{
-		std::cerr << "Can't connect to redis: " << m_errmsg << std::endl;
+		LOG_INFO("Can't connect to redis: %s", m_errmsg.c_str());
 		return false;
 	}
-	/*redisclient::RedisValue result;
-	result = m_redis.command("GET", {"fuck"});
-	std::cout << "GET: " << result.toString() << "\n";*/
+	LOG_INFO("Connect to redis host %s %s success", addr.c_str(), port.c_str());
+	return true;
+}
+
+bool redisconn::setvalue(std::string& key, char* value)
+{
+	redisclient::RedisValue result;
+	result = m_redis.command("SET", {key.c_str(),value});
+	LOG_DEBUG("Resis Run:SET %s %s", key.c_str(),value);
+	LOG_DEBUG("result: %s",result.toString().c_str());
+	return true;
+}
+
+bool redisconn::getvalue(std::string& key, std::string& value)
+{
+	redisclient::RedisValue result;
+	result = m_redis.command("GET", {key.c_str()});
+	value = result.toString();
+	LOG_DEBUG("Resis Run:GET %s", key.c_str());
+	LOG_DEBUG("result: %s", result.toString().c_str());
 	return true;
 }

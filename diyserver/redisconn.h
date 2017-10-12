@@ -1,5 +1,5 @@
 //redisconn.hpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //simple redis connection class based on a open source template class
 
 #pragma once
@@ -18,6 +18,8 @@ public:
 	redisconn(void);
 	virtual ~redisconn(void);
 	bool connect(std::string& addr,std::string& port);
+	bool setvalue(std::string& key, char* value);
+	bool getvalue(std::string& key,std::string& value);
 
 	boost::asio::io_service      m_ios;
 	redisclient::RedisSyncClient m_redis;

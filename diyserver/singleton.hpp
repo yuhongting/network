@@ -1,5 +1,5 @@
 //singleton.hpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //simple single instance template class impl
 
 #ifndef SINGLETON_H_

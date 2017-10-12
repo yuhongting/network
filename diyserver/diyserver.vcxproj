@@ -93,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="connection.cpp" />
     <ClCompile Include="diysector.cpp" />
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="redisclient\impl\redisasyncclient.cpp" />
     <ClCompile Include="redisclient\impl\redisclientimpl.cpp" />
@@ -101,17 +102,20 @@
     <ClCompile Include="redisclient\impl\redisvalue.cpp" />
     <ClCompile Include="redisconn.cpp" />
     <ClCompile Include="server.cpp" />
+    <ClCompile Include="usermanager.cpp" />
     <ClCompile Include="worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connection.hpp" />
     <ClInclude Include="diysector.h" />
+    <ClInclude Include="logger.h" />
     <ClInclude Include="msgpack.hpp" />
     <ClInclude Include="netpack.hpp" />
     <ClInclude Include="redisclient\impl\redisclientimpl.h" />
     <ClInclude Include="redisconn.h" />
     <ClInclude Include="server.hpp" />
     <ClInclude Include="singleton.hpp" />
+    <ClInclude Include="usermanager.h" />
     <ClInclude Include="worker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

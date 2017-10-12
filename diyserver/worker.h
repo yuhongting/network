@@ -1,5 +1,5 @@
 //worker.h
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //actually the worker is a thread class with two message queue
 
 #pragma once

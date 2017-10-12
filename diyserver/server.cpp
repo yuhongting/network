@@ -1,5 +1,5 @@
 //server.cpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //impl the server class
 
 #include "server.hpp"
@@ -7,13 +7,14 @@
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <vector>
+#include "diysector.h"
+#include "logger.h"
 
 server::server(const std::string& address, const std::string& port,
 			   std::size_t thread_pool_size)
 			   : thread_pool_size_(thread_pool_size),
 			   signals_(io_service_),
-			   acceptor_(io_service_),
-			   new_connection_()
+			   acceptor_(io_service_)
 {
 	// Register to handle the signals that indicate when the server should exit.
 	// It is safe to register for the same signal multiple times in a program,
@@ -47,7 +48,8 @@ void server::run()
 			boost::bind(&boost::asio::io_service::run, &io_service_)));
 		threads.push_back(thread);
 	}
-
+	diysector::instance().start();
+	diysector::instance().join();
 	// Wait for all threads in the pool to exit.
 	for (std::size_t i = 0; i < threads.size(); ++i)
 		threads[i]->join();
@@ -55,17 +57,19 @@ void server::run()
 
 void server::start_accept()
 {
-	new_connection_.reset(new connection(io_service_));
-	acceptor_.async_accept(new_connection_->socket(),
+	connection_ptr conn(new connection(io_service_));
+	acceptor_.async_accept(conn->socket(),
 		boost::bind(&server::handle_accept, this,
-		boost::asio::placeholders::error));
+		boost::asio::placeholders::error,conn));
 }
 
-void server::handle_accept(const boost::system::error_code& e)
+void server::handle_accept(const boost::system::error_code& e,connection_ptr conn)
 {
 	if (!e)
 	{
-		new_connection_->start();
+		LOG_DEBUG("Client %s connected",
+			conn->socket().remote_endpoint().address().to_string().c_str());
+		conn->start();
 	}
 
 	start_accept();

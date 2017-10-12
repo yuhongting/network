@@ -1,5 +1,5 @@
 //server.hpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //actually server is a network manager
 
 #ifndef SERVER_HPP
@@ -31,7 +31,7 @@ private:
 	void start_accept();
 
 	/// Handle completion of an asynchronous accept operation.
-	void handle_accept(const boost::system::error_code& e);
+	void handle_accept(const boost::system::error_code& e, connection_ptr conn);
 
 	/// Handle a request to stop the server.
 	void handle_stop();
@@ -47,9 +47,6 @@ private:
 
 	/// Acceptor used to listen for incoming connections.
 	boost::asio::ip::tcp::acceptor acceptor_;
-
-	/// The next connection to be accepted.
-	connection_ptr new_connection_;
 };
 
 #endif

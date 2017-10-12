@@ -51,6 +51,12 @@
     <ClCompile Include="redisclient\impl\redisvalue.cpp">
       <Filter>redisclient</Filter>
     </ClCompile>
+    <ClCompile Include="usermanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connection.hpp">
@@ -79,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="redisclient\impl\redisclientimpl.h">
       <Filter>redisclient</Filter>
+    </ClInclude>
+    <ClInclude Include="usermanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

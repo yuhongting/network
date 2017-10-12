@@ -1,8 +1,9 @@
 //worker.cpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //impl the worker class
 
 #include "worker.h"
+#include "msgpack.hpp"
 
 worker::worker(void)
 {
@@ -75,7 +76,7 @@ void* worker::pop()
 
 void worker::run()
 {
-	while(done())
+	while(!done())
 	{
 		void* msg = pop();
 		if(!msg)
@@ -85,7 +86,9 @@ void worker::run()
 		else
 		{
 			handle_msg(msg);
-			delete msg;
+			msgpack* pack = (msgpack*)msg;
+			delete pack;
+			pack = NULL;
 		}
 	}
 }

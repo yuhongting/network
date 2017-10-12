@@ -1,5 +1,5 @@
 //connection.hpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //Represents a single connection from a client.
 
 #ifndef CONNECTION_HPP
@@ -10,6 +10,7 @@
 #include <boost/array.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/thread/mutex.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include "netpack.hpp"
 
@@ -21,13 +22,17 @@ class connection
 public:
   /// Construct a connection with the given io_service.
   explicit connection(boost::asio::io_service& io_service);
+  virtual ~connection();
 
   /// Get the socket associated with the connection.
   boost::asio::ip::tcp::socket& socket();
 
   /// Start the first asynchronous operation for the connection.
   void start();
+  void stop();
   void write(netpack* npack);
+  std::string& getuser();
+  void setuser(std::string& user);
 
 private:
   /// Handle completion of a read operation.
@@ -46,9 +51,13 @@ private:
   /// Socket for the connection.
   boost::asio::ip::tcp::socket socket_;
 
-  netpack* buffer_;
+  netpack* m_buffer;
+  /// Customer data pointer
+  void*    m_data;
   bool     m_sending;
+  boost::mutex   m_mutexWrite;
   std::list<netpack*> m_sendPool;
+  std::string m_user;
 };
 
 typedef boost::shared_ptr<connection> connection_ptr;

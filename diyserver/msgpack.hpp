@@ -1,5 +1,5 @@
 //msgpack.hpp
-//created by yht 2017-09-26
+//created by yht 2017-08-27
 //simple message pack impl
 
 #ifndef MSGPACK_HPP
@@ -10,6 +10,7 @@
 #include <boost/asio.hpp>
 #include "netpack.hpp"
 #include "connection.hpp"
+#include "logger.h"
 
 struct msgpack
 {
@@ -17,6 +18,14 @@ struct msgpack
 	{
 		npack = pack;
 		conn = con;
+	}
+	virtual ~msgpack()
+	{
+		if (npack)
+		{
+			delete npack;
+			npack = NULL;
+		}
 	}
 	netpack* npack;
 	connection_ptr conn;
