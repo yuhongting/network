@@ -133,7 +133,7 @@ std::string loadfile(std::string& file)
 
 void send_file(chat_client& c,std::string& file)
 {
-	std::string cmd = "set fuck ";
+	std::string cmd = "set "+ file + " ";
 	std::string fdata = loadfile(file);
 	if (!fdata.length())
 	{
